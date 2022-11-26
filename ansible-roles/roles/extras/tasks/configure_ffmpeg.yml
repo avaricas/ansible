@@ -1,0 +1,55 @@
+---
+- name: Configure | FFMPEG.
+  block:
+    - name: Install | Extra packages.
+      ansible.builtin.package:
+        name: "{{ package_list['extra'] }}"
+        state: present
+
+    - name: Download | FFMPEG.
+      ansible.builtin.copy:
+        src: "{{ ffmpeg_src_dir }}"
+        dest: "{{ opt_dir }}"
+        owner: root
+        group: root
+        mode: 0755
+        remote_src: false
+
+    - name: Unarchive | FFMPEG.
+      ansible.builtin.unarchive:
+        src: /opt/ffmpeg-4.2.2-amd64-static.tar.xz
+        dest: "{{ usr_local_bin_dir }}"
+        remote_src: true
+
+    - name: Configure | FFMPEG link.
+      ansible.builtin.file:
+        src: /usr/local/bin/ffmpeg-4.2.2-amd64-static/ffmpeg
+        dest: /usr/bin/ffmpeg
+        state: link
+
+    - name: Configure | FFMPEG link.
+      ansible.builtin.file:
+        src: /usr/local/bin/ffmpeg-4.2.2-amd64-static/ffmpeg
+        dest: /usr/bin/ffprobe
+        state: link
+
+    - name: Find | FFMMPEG Tar archive.
+      ansible.builtin.find:
+        path: "{{ opt_dir }}"
+        recurse: false
+        patterns: "ffmpeg*.tar.xz"
+      register: opt_dir_result
+
+    - name: Delete | FFMPEG Tar archive.
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items:
+        - "{{ opt_dir_result.files }}"
+
+    - name: Uninstall | Extra packages.
+      ansible.builtin.package:
+        name: "{{ package_list['extra'] }}"
+        state: absent
+  when: (tools.ffmpeg | default({}, false))
+  tags: [ "role::extras:ffmpeg" ]

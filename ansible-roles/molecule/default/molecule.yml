@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: amazonlinux_2
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    priveleged: true
+    pre_build_image: true
+lint: |
+  yamllint .
+  ansible-lint .
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: "../../roles"
+verifier:
+  name: testinfra
+  additional_files_or_dirs:
+    - ../molecule/default/tests/*

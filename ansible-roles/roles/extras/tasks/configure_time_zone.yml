@@ -1,0 +1,8 @@
+---
+- name: Set | Time-zone.
+  block:
+    - name: Set | Default TimeZone.
+      ansible.builtin.command: timedatectl set-timezone America/Chicago
+      changed_when: true
+  when: (tools.timezone | default({}, false))
+  tags: [ "role::extras:timezone" ]

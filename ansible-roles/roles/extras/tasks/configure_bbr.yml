@@ -1,0 +1,34 @@
+---
+- name: Configure | BBR.
+  block:
+    - name: Create | Modules directory.
+      ansible.builtin.file:
+        path: "{{ bbr_etc_sysconfig_modules_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Copy | BBR modules.
+      ansible.builtin.copy:
+        src: "{{ bbr_tcpcong_file }}"
+        dest: "{{ bbr_tcppong_modules_path }}"
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create | BBR conf file.
+      ansible.builtin.file:
+        path: "{{ bbr_tcppong_conf_path }}"
+        state: touch
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Enable | BBR.
+      ansible.builtin.lineinfile:
+        path: "{{ bbr_tcppong_conf_path }}"
+        line: net.ipv4.tcp_congestion_control = bbr
+  notify: [ 'Reload systemd' ]
+  when: (tools.bbr | default({}, false))
+  tags: [ "role::extras:bbr" ]

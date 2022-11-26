@@ -1,0 +1,13 @@
+---
+- name: Install NGINX.
+  block:
+    - name: Enable | AmazonLinux2 Extras.
+      ansible.builtin.command: /usr/bin/amazon-linux-extras enable nginx1
+      changed_when: true
+
+    - name: Install | NGINX package.
+      ansible.builtin.package:
+        name: "{{ nginx_packages | list }}"
+        state: "present"
+      register: nginx_register_packages_present
+      until: nginx_register_packages_present is success

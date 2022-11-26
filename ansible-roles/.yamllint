@@ -1,0 +1,36 @@
+---
+extends: default
+
+# Rules documentation: https://yamllint.readthedocs.io/en/latest/rules.html
+rules:
+  braces:
+    min-spaces-inside: 1
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    min-spaces-inside: 1
+    max-spaces-inside: 1
+    level: error
+  colons:
+    max-spaces-after: -1
+    level: error
+  commas:
+    max-spaces-after: -1
+    level: error
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: disable
+  empty-lines:
+    max: 3
+    level: error
+  hyphens:
+    level: error
+  indentation:
+    spaces: 2
+    indent-sequences: consistent
+  key-duplicates: enable
+  line-length: disable
+  new-line-at-end-of-file: disable
+  truthy:
+    allowed-values: [ 'true', 'false' ]
+    check-keys: false

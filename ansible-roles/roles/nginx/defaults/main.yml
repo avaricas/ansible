@@ -1,0 +1,32 @@
+---
+# defaults file for ansible-role-nginx
+
+nginx_packages:
+  - nginx
+
+nginx_daemon: "nginx"
+
+# Directories
+nginx_log_dir: "/var/log/nginx"
+nginx_confd_dir: "/etc/nginx/conf.d"
+
+nginx_sites_available_dir: "/etc/nginx/sites-available"
+nginx_sites_enabled_dir: "/etc/nginx/sites-enabled"
+nginx_vhost_dir: "/var/www/app"
+
+opt_dir: "/opt"
+
+# Config paths
+nginx_path: "/etc/nginx"
+nginx_conf_path: "/etc/nginx/nginx.conf"
+
+# Sites-enabled
+nginx_sites_enabled_path: "/etc/nginx/sites-enabled/default.conf"
+nginx_sites_enabled_app_conf_path: "/etc/nginx/sites-enabled/app.conf"
+
+# Logrotate
+nginx_logrotate_path: "/etc/logrotate.d/nginx"
+
+# Sites-available
+nginx_sites_available_default_file: "files/etc/nginx/conf.d/sites-available/default.conf"
+

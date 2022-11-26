@@ -1,0 +1,42 @@
+---
+# tasks file for ansible-role-cis
+
+# - name: Check | OS version.
+#   ansible.builtin.fail:
+#     msg: "FAIL | This role can only be executed on Amazon Linux 2 operating systems. {{ ansible_distribution }} {{ ansible_distribution_version }} is not supported."
+#   when:
+#     - ansible_distribution|lower == 'amazon'
+#     - ansible_distribution_version is version_compare('2', '!=')
+
+# - name: Check | OS version.
+#   ansible.builtin.debug:
+#     msg: "PASS | This role can only be executed on Amazon Linux 2 operating systems."
+#   when:
+#     - ansible_distribution|lower == 'amazon'
+#     - ansible_distribution_version is version_compare('2', '==')
+
+- name: Get | Service facts.
+  ansible.builtin.service_facts:
+
+- name: Get | package facts.
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Configure | Level-1.
+  ansible.builtin.include_tasks: "level_1.yml"
+  when: cis_apply_level_1_profile
+
+- name: Configure | Level-2.
+  ansible.builtin.include_tasks: level_2.yml
+  when: cis_apply_level_2_profile
+
+- name: flush handlers
+  ansible.builtin.meta: flush_handlers
+# - name: Reboot instance
+#   reboot:
+#     msg: "Reboot initiated by Ansible for kernel updates"
+#     connect_timeout: 5
+#     reboot_timeout: 180
+#     pre_reboot_delay: 5
+#     post_reboot_delay: 20
+#   notify: Reload systemd

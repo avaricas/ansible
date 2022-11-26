@@ -1,0 +1,9 @@
+---
+exclude_paths:
+  - playbooks/prerequisites/
+  - bitbucket-pipelines.yml
+  - molecule/
+  - policy_sentry/
+skip_list:
+  - experimental # all rules tagged as experimental
+  - yaml # Violations reported by yamllint

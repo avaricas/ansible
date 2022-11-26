@@ -1,0 +1,22 @@
+---
+- name: Import | Global handlers.
+  ansible.builtin.import_role:
+    name: global_handlers
+
+- name: Include | NGINX tasks.
+  block:
+    - name: Include | NGINX tasks.
+      block:
+        - name: Install | NGINX.
+          ansible.builtin.include_tasks: install_nginx.yml
+
+        - name: Configure | NGINX.
+          ansible.builtin.include_tasks: configure_nginx.yml
+
+        - name: Configure | NGINX logrotate.
+          ansible.builtin.include_tasks: configure_nginx_logrotate.yml
+
+        - name: Configure | NGINX app.
+          ansible.builtin.include_tasks: configure_nginx_app.yml
+
+  notify: [ "Test nginx and restart" ]

@@ -1,0 +1,29 @@
+---
+- name: Configure | NGINX.
+  block:
+    - name: Configure | NGINX Log directory.
+      ansible.builtin.file:
+        path: "{{ nginx_log_dir }}"
+        state: directory
+        owner: nginx
+        group: root
+        mode: 0755
+      tags: [ "role::nginx:nginx_log" ]
+
+    - name: Configure | NGINX Log file permissions.
+      ansible.builtin.file:
+        path: "{{ nginx_log_dir }}"
+        owner: nginx
+        group: root
+        mode: 0664
+        recurse: true
+
+    - name: Configure | NGINX Logrotate.
+      ansible.builtin.template:
+        src: "{{ nginx_logrotate_template }}"
+        dest: "{{ nginx_logrotate_path }}"
+        owner: root
+        group: root
+        mode: 0644
+      tags: [ "role::nginx:configure_logrotate" ]
+  notify: [ "Test nginx and restart" ]

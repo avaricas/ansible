@@ -1,0 +1,31 @@
+---
+- name: Import | Global handlers.
+  ansible.builtin.import_role:
+    name: global_handlers
+
+- name: Enable | Amazon Linux extras.
+  ansible.builtin.include_tasks: configure_amazon_linux_extras.yml
+
+- name: Install | Packages.
+  ansible.builtin.include_tasks: install_packages.yml
+
+- name: Install | WKHTMLTOX.
+  ansible.builtin.include_tasks: configure_wkhtmltox.yml
+
+- name: Install | FFMPEG.
+  ansible.builtin.include_tasks: configure_ffmpeg.yml
+
+- name: Install | Fail2ban.
+  ansible.builtin.include_tasks: configure_fail2ban.yml
+
+- name: Install | Dnsmasq.
+  ansible.builtin.include_tasks: configure_dnsmasq.yml
+
+- name: Install | Time-Zone.
+  ansible.builtin.include_tasks: configure_time_zone.yml
+
+- name: Install | BBR.
+  ansible.builtin.include_tasks: configure_bbr.yml
+
+- name: flush handlers.
+  ansible.builtin.meta: flush_handlers

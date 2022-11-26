@@ -1,0 +1,67 @@
+---
+- name: Enable | NGINX.
+  block:
+    - name: Enable | NGINX service.
+      ansible.builtin.service:
+        name: "{{ nginx_daemon }}"
+        enabled: true
+      register: nginx
+      notify: [ "Test nginx and reload" ]
+  tags: nginx_enable
+
+- name: Cleanup | NGINX.
+  block:
+    - name: Find | NGINX default config files.
+      ansible.builtin.find:
+        paths: "{{ nginx_path }}"
+        patterns: "*.default"
+      register: files_to_delete
+
+    - name: Delete | NGINX default config files.
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ files_to_delete.files }}"
+  tags: nginx_config_cleanup
+
+- name: Configure | NGINX.
+  block:
+    - name: Create | NGINX directories.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: "directory"
+        owner: root
+        group: root
+        mode: 0755
+      loop:
+        - "{{ nginx_confd_dir }}"
+        - "{{ nginx_enable_dir }}"
+        - "{{ nginx_limits_dir }}"
+        - "{{ nginx_locations_dir }}"
+        - "{{ nginx_logs_dir }}"
+        - "{{ nginx_system_dir }}"
+        - "{{ nginx_upstreams_dir }}"
+        - "{{ nginx_sites_available_dir }}"
+        - "{{ nginx_sites_enabled_dir }}"
+        - "{{ nginx_vhost_dir }}"
+
+    - name: Configure | NGINX.CONF.
+      ansible.builtin.copy:
+        src: etc/nginx/
+        dest: "{{ nginx_path }}"
+        owner: root
+        group: root
+        mode: 0644
+      notify: [ "Test nginx and reload" ]
+
+    - name: Configure | NGINX link.
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+        force: true
+      loop:
+        - { src: "{{ nginx_sites_available_path }}", dest: "{{ nginx_sites_enabled_path }}" }
+        - { src: "{{ nginx_sites_available_app_conf_path }}", dest: "{{ nginx_sites_enabled_app_conf_path }}" }
+      notify: [ "Test nginx and restart" ]
+  tags: [ "role::nginx:configure_nginx" ]
