@@ -1,0 +1,26 @@
+---
+- name: Configure | EC2 variables.
+  block:
+    - name: Get | Service facts.
+      ansible.builtin.service_facts:
+
+    - name: Get | Package facts.
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Get | Metadata facts.
+      amazon.aws.ec2_metadata_facts:
+
+    - name: Get | Instance metadata.
+      amazon.aws.ec2_instance_info:
+        instance_ids:
+          - "{{ ansible_ec2_instance_id }}"
+        region: "{{ ansible_ec2_placement_region }}"
+      register: instance_info
+      delegate_to: localhost
+
+    - name: Set | Instance variables.
+      set_fact:
+        "{{ 'ec2_tag_' + item.key.replace(' ','_').replace(':','_').replace('-','_')|lower }}": "{{ item.value|lower }}"
+      with_dict: "{{ instance_info.instances.0.tags }}"
+  tags: ec2
