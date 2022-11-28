@@ -18,5 +18,4 @@
     - name: Import | NGINX Role.
       ansible.builtin.import_role:
         name: nginx
-      vars:
-        target: "image_builder"
+
