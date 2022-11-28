@@ -4,17 +4,11 @@
   connection: local
   gather_facts: true
   become: true
-  vars:
-    tools:
-      extras: true
-      packages: true
-      timezone: true
-      bbr: true
-
   tasks:
-    - name: Import | Extras role.
+    - name: Import | Global Handlers Role.
       ansible.builtin.import_role:
-        name: extras
+        name: global_handlers
+
     - name: Import | NGINX Role.
       ansible.builtin.import_role:
         name: nginx
