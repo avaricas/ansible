@@ -19,6 +19,10 @@
       ansible.builtin.import_role:
         name: global_handlers
 
+    - name: Import | Extras role.
+      ansible.builtin.import_role:
+        name: extras
+
     - name: Import | Nginx role.
       ansible.builtin.import_role:
         name: nginx
