@@ -1,5 +1,5 @@
 ---
-- name: Configure Web Server from Launch Template.
+- name: Configure Web Server.
   hosts: localhost
   connection: local
   gather_facts: true
@@ -12,9 +12,6 @@
       bbr: true
 
   tasks:
-    # - name: Configure | EC2 variables.
-    #   ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
-
     - name: Import | Global handlers
       ansible.builtin.import_role:
         name: global_handlers
