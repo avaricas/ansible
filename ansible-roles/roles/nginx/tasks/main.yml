@@ -15,8 +15,3 @@
 
         - name: Configure | NGINX logrotate.
           ansible.builtin.include_tasks: configure_nginx_logrotate.yml
-
-        - name: Configure | NGINX app.
-          ansible.builtin.include_tasks: configure_nginx_app.yml
-
-  notify: [ "Test nginx and restart" ]

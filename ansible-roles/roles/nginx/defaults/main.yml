@@ -9,10 +9,16 @@ nginx_daemon: "nginx"
 # Directories
 nginx_log_dir: "/var/log/nginx"
 nginx_confd_dir: "/etc/nginx/conf.d"
-
+nginx_enable_dir: "/etc/nginx/conf.d/enable"
+nginx_limits_dir: "/etc/nginx/conf.d/limits"
+nginx_locations_dir: "/etc/nginx/conf.d/locations"
+nginx_logs_dir: "/etc/nginx/conf.d/logs"
+nginx_system_dir: "/etc/nginx/conf.d/system"
+nginx_upstreams_dir: "/etc/nginx/conf.d/upstreams"
 nginx_sites_available_dir: "/etc/nginx/sites-available"
 nginx_sites_enabled_dir: "/etc/nginx/sites-enabled"
 nginx_vhost_dir: "/var/www/app"
+
 
 opt_dir: "/opt"
 
@@ -20,13 +26,15 @@ opt_dir: "/opt"
 nginx_path: "/etc/nginx"
 nginx_conf_path: "/etc/nginx/nginx.conf"
 
+
+# Sites-available
+nginx_sites_available_path: "/etc/nginx/sites-available/default.conf"
+nginx_sites_available_app_conf_path: "/etc/nginx/sites-available/app.conf"
+
 # Sites-enabled
 nginx_sites_enabled_path: "/etc/nginx/sites-enabled/default.conf"
 nginx_sites_enabled_app_conf_path: "/etc/nginx/sites-enabled/app.conf"
 
 # Logrotate
+nginx_logrotate_template: "templates/nginx-logrotate.j2"
 nginx_logrotate_path: "/etc/logrotate.d/nginx"
-
-# Sites-available
-nginx_sites_available_default_file: "files/etc/nginx/conf.d/sites-available/default.conf"
-
