@@ -12,8 +12,8 @@
       bbr: true
 
   tasks:
-    - name: Configure | EC2 variables.
-      ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
+    # - name: Configure | EC2 variables.
+    #   ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
 
     - name: Import | Global handlers
       ansible.builtin.import_role:
