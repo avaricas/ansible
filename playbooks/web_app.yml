@@ -5,11 +5,10 @@
   gather_facts: true
   become: true
   tasks:
-    - name: Import | Global Handlers Role.
+    - name: Import | Global handlers.
       ansible.builtin.import_role:
         name: global_handlers
 
     - name: Import | NGINX Role.
       ansible.builtin.import_role:
         name: nginx
-
