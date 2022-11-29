@@ -15,3 +15,11 @@
 
         - name: Configure | NGINX logrotate.
           ansible.builtin.include_tasks: configure_nginx_logrotate.yml
+      when:
+        - target is defined
+        - target == "golden_image"
+
+    - name: Configure | NGINX app.
+      ansible.builtin.include_tasks: configure_nginx_app.yml
+
+  notify: [ "Test nginx and restart" ]

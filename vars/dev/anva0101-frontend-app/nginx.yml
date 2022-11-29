@@ -1,0 +1,2 @@
+nginx_app_extra_root_path: "/frontend"
+nginx_proxy_pass_port: "3000"
