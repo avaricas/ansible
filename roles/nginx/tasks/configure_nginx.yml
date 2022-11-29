@@ -35,12 +35,6 @@
         mode: 0755
       loop:
         - "{{ nginx_confd_dir }}"
-        - "{{ nginx_enable_dir }}"
-        - "{{ nginx_limits_dir }}"
-        - "{{ nginx_locations_dir }}"
-        - "{{ nginx_logs_dir }}"
-        - "{{ nginx_system_dir }}"
-        - "{{ nginx_upstreams_dir }}"
         - "{{ nginx_sites_available_dir }}"
         - "{{ nginx_sites_enabled_dir }}"
         - "{{ nginx_vhost_dir }}"
