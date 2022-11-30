@@ -9,9 +9,9 @@
       ansible.builtin.import_role:
         name: global_handlers
 
-# Anisible CIS role based on the CIS Amazon Linux 2 Benchmark v2.0.0"
-# Source: https://www.cisecurity.org/cis-benchmarks/
-    # - name: Import | CIS Role. 
+    # Anisible CIS role based on the CIS Amazon Linux 2 Benchmark v2.0.0"
+    # Source: https://www.cisecurity.org/cis-benchmarks/
+    # - name: Import | CIS Role.
     #   ansible.builtin.import_role:
     #     name: cis
 

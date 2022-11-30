@@ -48,4 +48,3 @@
         mode: 0644
       notify: [ "Test nginx and reload" ]
   tags: [ "role::nginx:configure_nginx" ]
-  

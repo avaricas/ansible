@@ -13,13 +13,11 @@ nginx_sites_available_dir: "/etc/nginx/sites-available"
 nginx_sites_enabled_dir: "/etc/nginx/sites-enabled"
 nginx_vhost_dir: "/var/www/app"
 
-
 opt_dir: "/opt"
 
 # Config paths
 nginx_path: "/etc/nginx"
 nginx_conf_path: "/etc/nginx/nginx.conf"
-
 
 # Sites-available
 nginx_sites_available_app_conf_template: "templates/sites-available/default.conf.j2"

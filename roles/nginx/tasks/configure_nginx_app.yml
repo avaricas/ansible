@@ -3,8 +3,8 @@
   block:
     - name: Configure | NGINX app.conf file.
       ansible.builtin.template:
-        src: '{{ nginx_sites_available_app_conf_template }}'
-        dest: '{{ nginx_sites_available_app_conf_path }}'
+        src: "{{ nginx_sites_available_app_conf_template }}"
+        dest: "{{ nginx_sites_available_app_conf_path }}"
         owner: root
         group: root
         mode: 0644
@@ -17,5 +17,5 @@
         force: true
       loop:
         - { src: "{{ nginx_sites_available_app_conf_path }}", dest: "{{ nginx_sites_enabled_app_conf_path }}" }
-      notify: [ "Test nginx and restart" ]        
+      notify: [ "Test nginx and restart" ]
   tags: [ "role::nginx:configure_nginx_app" ]
