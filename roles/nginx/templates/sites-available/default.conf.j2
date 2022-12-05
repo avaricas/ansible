@@ -14,7 +14,6 @@ server {
     # reverse proxy
     location / {
         proxy_pass            http://127.0.0.1:{{nginx_proxy_pass_port|default("3000")}};
-        proxy_set_header Host $host;
         include               /etc/nginx/conf.d/proxy.conf;
     }
     location /health_check {
