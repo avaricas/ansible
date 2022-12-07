@@ -5,12 +5,12 @@
   gather_facts: true
   become: true
   tasks:
-    # - name: Configure | EC2 variables.
-    #   ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
+    - name: Configure | EC2 variables.
+      ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
 
-    # - name: Include | Files in vars
-    #   ansible.builtin.include_vars:
-    #     dir: ../vars/{{ ec2_tag_env }}/{{ ec2_tag_project }}-{{ ec2_tag_application }}
+    - name: Include | Files in vars
+      ansible.builtin.include_vars:
+        dir: ../vars/{{ ec2_tag_env }}/{{ ec2_tag_project }}-{{ ec2_tag_application }}
 
     - name: Import | Global handlers
       ansible.builtin.import_role:
@@ -29,12 +29,12 @@
   gather_facts: true
   become: true
   tasks:
-    # - name: Configure | EC2 variables.
-    #   ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
+    - name: Configure | EC2 variables.
+      ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
 
-    # - name: Include | Files in vars
-    #   ansible.builtin.include_vars:
-    #     dir: ../vars/{{ ec2_tag_env }}/{{ ec2_tag_project }}-{{ ec2_tag_application }}
+    - name: Include | Files in vars
+      ansible.builtin.include_vars:
+        dir: ../vars/{{ ec2_tag_env }}/{{ ec2_tag_project }}-{{ ec2_tag_application }}
 
     - name: Import | Global handlers
       ansible.builtin.import_role:
