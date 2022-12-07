@@ -6,7 +6,7 @@
   become: true
   tasks:
     - name: Configure | EC2 variables.
-      ansible.builtin.include_tasks: prerequisites/get_ec2_facts.yml
+      ansible.builtin.include_tasks: ../../prerequisites/get_ec2_facts.yml
 
     - name: Include | Files in vars
       ansible.builtin.include_vars:
