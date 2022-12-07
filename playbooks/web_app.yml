@@ -22,7 +22,6 @@
       vars:
         target: "golden_image"
 
-
 - name: Configure Web Server.
   hosts: localhost
   connection: local
