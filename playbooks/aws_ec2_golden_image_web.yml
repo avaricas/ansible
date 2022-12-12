@@ -11,9 +11,9 @@
 
     # Anisible CIS role based on the CIS Amazon Linux 2 Benchmark v2.0.0"
     # Source: https://www.cisecurity.org/cis-benchmarks/
-    # - name: Import | CIS Role.
-    #   ansible.builtin.import_role:
-    #     name: cis
+    - name: Import | CIS Role.
+      ansible.builtin.import_role:
+        name: cis
 
     - name: Import | Nginx role.
       ansible.builtin.import_role:
