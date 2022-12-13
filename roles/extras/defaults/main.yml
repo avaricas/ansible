@@ -1,0 +1,10 @@
+---
+amazon_linux_extras:
+  epel: epel-release
+
+package_list:
+  basic:
+    - jq
+    - wget
+    - tar
+    - amazon-efs-utils

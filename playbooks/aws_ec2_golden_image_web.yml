@@ -4,6 +4,10 @@
   connection: local
   gather_facts: true
   become: true
+  vars:
+    tools:
+      extras: true
+      packages: true  
   tasks:
     - name: Import | Global handlers
       ansible.builtin.import_role:

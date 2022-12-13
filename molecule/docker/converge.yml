@@ -7,19 +7,17 @@
     tools:
       extras: true
       packages: true
-      # timezone: true
-      # bbr: true
-      # dnsmasq: true
   tasks:
-    # - name: Import | CIS Role.
-    #   ansible.builtin.import_role:
-    #     name: cis
+    - name: Import | CIS Role.
+      ansible.builtin.import_role:
+        name: cis
 
     - name: Import | Extras role.
       ansible.builtin.import_role:
         name: extras
+
     - name: Import | NGINX Role.
       ansible.builtin.import_role:
         name: nginx
       vars:
-        target: "image_builder"
+        target: "golden_image"
