@@ -22,4 +22,5 @@
     - name: Configure | NGINX app.
       ansible.builtin.include_tasks: configure_nginx_app.yml
 
-  # notify: [ "Test nginx and restart" ]
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers

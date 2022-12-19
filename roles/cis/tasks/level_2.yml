@@ -187,7 +187,7 @@
           loop:
             - { name: net.ipv6.conf.all.disable_ipv6, value: 1 }
             - { name: net.ipv6.conf.default.disable_ipv6, value: 1 }
-          notify: Reload sysctl
+          #: Reload sysctl
           tags:
             - section-3
             - level-2
@@ -263,7 +263,7 @@
                     dest: "{{ cis_grub_conf_path }}"
                     regexp: ^(GRUB_CMDLINE_LINUX.*)(?:\")(.+)(?<!audit=1)(?:\")
                     replace: '\1"\2 audit=1"'
-                  notify: Reconfigure GRUB
+                  #: Reconfigure GRUB
                   when: ('"PASSED" not in audit_4_1_1_3.stdout')
               tags:
                 - section-4
@@ -345,7 +345,7 @@
                     dest: "{{ cis_grub_conf_path }}"
                     regexp: ^(GRUB_CMDLINE_LINUX.*)(?:\")(.+)(?<!audit_backlog_limit=)(?:\")
                     replace: '\1"\2 audit_backlog_limit=8192"'
-                  notify: Reconfigure GRUB
+                  #: Reconfigure GRUB
                   when: ('"PASSED:" not in audit_4_1_2_4_result.stdout_lines')
               tags:
                 - section-4
@@ -367,7 +367,7 @@
             - "-a always,exit -F arch=b64 -S clock_settime -k time-change"
             - "-a always,exit -F arch=b32 -S clock_settime -k time-change"
             - "-w /etc/localtime -p wa -k time-change"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -384,7 +384,7 @@
             - "-w /etc/gshadow -p wa -k identity"
             - "-w /etc/shadow -p wa -k identity"
             - "-w /etc/security/opasswd -p wa -k identity"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -402,7 +402,7 @@
             - "-w /etc/issue.net -p wa -k system-locale"
             - "-w /etc/hosts -p wa -k system-locale"
             - "-w /etc/sysconfig/network -p wa -k system-locale"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -416,7 +416,7 @@
             - "# 4.1.6 Ensure events that modify the systems Mandatory Access Controls are collected"
             - "-w /etc/selinux/ -p wa -k MAC-policy"
             - "-w /usr/share/selinux/ -p wa -k MAC-policy"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -430,7 +430,7 @@
             - "# 4.1.7 Ensure login and logout events are collected"
             - "-w /var/log/lastlog -p wa -k logins"
             - "-w /var/run/faillock/ -p wa -k logins"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -445,7 +445,7 @@
             - "-w /var/run/utmp -p wa -k session"
             - "-w /var/log/wtmp -p wa -k logins"
             - "-w /var/log/btmp -p wa -k logins"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -463,7 +463,7 @@
             - "-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod"
             - "-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod"
             - "-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -479,7 +479,7 @@
             - "-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access"
             - "-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access"
             - "-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -498,7 +498,7 @@
                 insertafter: EOF
                 line: "-a always,exit -F path={{ item }} -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged"
               loop: "{{ privileged_binaries.stdout_lines }}"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -512,7 +512,7 @@
             - "# 4.1.12 Ensure successful file system mounts are collectedd"
             - "-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
             - "-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -526,7 +526,7 @@
             - "# 4.1.13 Ensure file deletion events by users are collected"
             - "-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete"
             - "-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -540,7 +540,7 @@
             - "# 4.1.14 Ensure changes to system administration scope (sudoers) is collected"
             - "-w /etc/sudoers -p wa -k scope"
             - "-w /etc/sudoers.d/ -p wa -k scope"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -554,7 +554,7 @@
             - "# 4.1.15 Ensure system administrator command executions (sudo) are collected"
             - "-a always,exit -F arch=b64 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions"
             - "-a always,exit -F arch=b32 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -570,7 +570,7 @@
             - "-w /sbin/rmmod -p x -k modules"
             - "-w /sbin/modprobe -p x -k modules"
             - "-a always,exit -F arch=b64 -S init_module -S delete_module -k modules"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
@@ -583,14 +583,14 @@
           loop:
             - "# 4.1.17 Ensure the audit configuration is immutable"
             - "-e 2"
-          notify: Generate auditd rules
+          #: Generate auditd rules
           tags:
             - section-4
             - level-2
             - "4.1.17"
-      notify:
-        - Restart auditd
-        - Reload systemd
+      #:
+        # - Restart auditd
+        # - Reload systemd
       tags:
         - section-4
         - level-2
