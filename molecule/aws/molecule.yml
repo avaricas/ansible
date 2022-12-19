@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: ec2
+platforms:
+  - name: amazon-linux-2
+    image_owner: "355535068101"
+    image: "ami-02aeff1a953c5c2ff"
+    region: eu-north-1
+    image_name: "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+    instance_type: t3.micro
+    vpc_subnet_id: subnet-08325841e9d875f5d
+    network:
+      assign_public_ip: true
+    # instance_profile_name: ec2-dev-in-api-role
+    tags:
+      Name: Amazon-Linux-2
+      # application: na
+      # env: na
+      # project: na
+      # vpc: na
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+provisioner:
+  name: ansible
+  options:
+    vvv: true
+  env:
+    AWS_REGION: eu-north-1
+    ANSIBLE_ROLES_PATH: "../../roles"
+verifier:
+  name: testinfra

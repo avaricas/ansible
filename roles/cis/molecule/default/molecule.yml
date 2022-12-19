@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: ec2
+platforms:
+  - name:  ${AWS_NAME}
+    image: ${AWS_IMAGE}
+    instance_type: ${AWS_INSTANCE_TYPE}
+    vpc_subnet_id: ${AWS_VPC_SUBNET_ID}
+    group_id: ${AWS_GROUP_ID}
+    key_name: ${AWS_KEY_NAME}
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra
+lint: |
+ set -e
+ yamllint .
+ ansible-lint
+ flake8
