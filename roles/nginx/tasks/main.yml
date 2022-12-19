@@ -22,4 +22,4 @@
     - name: Configure | NGINX app.
       ansible.builtin.include_tasks: configure_nginx_app.yml
 
-  notify: [ "Test nginx and restart" ]
+  # notify: [ "Test nginx and restart" ]
