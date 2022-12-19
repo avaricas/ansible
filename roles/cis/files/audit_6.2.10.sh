@@ -1,16 +1,15 @@
 #!/bin/bash
-
-for dir in `cat /etc/passwd | egrep -v '^(root|sync|halt|shutdown):' | awk -F: '($7 != "/sbin/nologin") { print $6 }'`; do
-  for file in $dir/.[A-Za-z0-9]*; do
-    if [ ! -h "$file" -a -f "$file" ]; then
-      fileperm=`ls -ld $file | cut -f1 -d" "`
-
-      if [ `echo $fileperm | cut -c6 ` != "-" ]; then
-        echo "Group Write permission set on file $file"
-      fi
-      if [ `echo $fileperm | cut -c9 ` != "-" ]; then
-        echo "Other Write permission set on file $file"
-      fi
+RPCV="$(sudo -Hiu root env | grep '^PATH' | cut -d= -f2)"
+echo "$RPCV" | grep -q "::" && echo "root's path contains a empty directory
+(::)"
+echo "$RPCV" | grep -q ":$" && echo "root's path contains a trailing (:)"
+for x in $(echo "$RPCV" | tr ":" " "); do
+    if [ -d "$x" ]; then
+        ls -ldH "$x" | awk '$9 == "." {print "PATH contains current working directory (.)"}
+ $3 != "root" {print $9, "is not owned by root"}
+ substr($1,6,1) != "-" {print $9, "is group writable"}
+ substr($1,9,1) != "-" {print $9, "is world writable"}'
+    else
+        echo "$x is not a directory"
     fi
-  done
 done

@@ -1,7 +1,9 @@
 #!/bin/bash
-
-cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
-  if [ $uid -ge 500 -a ! -d "$dir" -a $user != "nfsnobody" ]; then
-    echo "$user:$dir"
-  fi
+cut -f3 -d":" /etc/passwd | sort -n | uniq -c | while read -r x; do
+    [ -z "$x" ] && break
+    set - "$x"
+    if [ "$1" -gt 1 ]; then
+        users=$(awk -F: '($3 == n) { print $1 }' n="$2" /etc/passwd | xargs)
+        echo "Duplicate UID ($2): $users"
+    fi
 done

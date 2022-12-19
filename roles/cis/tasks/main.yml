@@ -1,21 +1,43 @@
-# Standards: 0.11
 ---
-# In container, we're root already. We don't want to install sudo if we can help it
-- include: "level-1.yml"
-  become: true
-  when: cis_apply_level_1_profile and in_container is defined
+# tasks file for ansible-role-cis
 
-- include: "level-2.yml"
-  become: true
-  when: cis_apply_level_2_profile and in_container is defined
+- name: Check | OS version.
+  ansible.builtin.fail:
+    msg: "FAIL | This role can only be executed on Amazon Linux 2 operating systems. {{ ansible_distribution }} {{ ansible_distribution_version }} is not supported."
+  when:
+    - ansible_distribution|lower == 'amazon'
+    - ansible_distribution_version is version_compare('2', '!=')
 
-- include: "level-1.yml"
-  become: true
-  when: cis_apply_level_1_profile and in_vm is defined
+- name: Check | OS version.
+  ansible.builtin.debug:
+    msg: "PASS | This role can only be executed on Amazon Linux 2 operating systems."
+  when:
+    - ansible_distribution|lower == 'amazon'
+    - ansible_distribution_version is version_compare('2', '==')
 
-- include: "level-2.yml"
-  become: true
-  when: cis_apply_level_2_profile and in_vm is defined
+- name: Get | Service facts.
+  ansible.builtin.service_facts:
 
-- name: flush handlers
-  meta: flush_handlers
+- name: Get | package facts.
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Configure | Level-1.
+  ansible.builtin.include_tasks: "level_1.yml"
+  when: cis_apply_level_1_profile
+
+- name: Configure | Level-2.
+  ansible.builtin.include_tasks: level_2.yml
+  when: cis_apply_level_2_profile
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+
+# - name: Reboot instance
+#   reboot:
+#     msg: "Reboot initiated by Ansible for kernel updates"
+#     connect_timeout: 5
+#     reboot_timeout: 180
+#     pre_reboot_delay: 5
+#     post_reboot_delay: 20
+#   notify: Reload systemd

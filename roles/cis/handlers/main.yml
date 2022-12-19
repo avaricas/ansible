@@ -1,23 +1,44 @@
-# Standards: 0.11
 ---
-
-- name: Restart sshd
-  service:
-    name: sshd
-    state: restarted
-
-- name: Restart rsyslog
-  service:
-    name: rsyslog
-    state: restarted
-
 - name: Restart auditd
-  service:
+  ansible.builtin.service:
     name: auditd
+    state: restarted
+    use: service
+
+- name: Restart postfix
+  ansible.builtin.service:
+    name: postfix
     state: restarted
 
 - name: Reconfigure GRUB
-  command: grub2-mkconfig -o /boot/grub2/grub.cfg
+  ansible.builtin.command: grub2-mkconfig -o /boot/grub2/grub.cfg
 
 - name: Generate auditd rules
-  command: /usr/sbin/augenrules
+  ansible.builtin.command: /usr/sbin/augenrules
+
+- name: Reload sysctl
+  ansible.builtin.command: sysctl -p /etc/sysctl.conf
+
+- name: Restart rsyslog
+  ansible.builtin.service:
+    name: rsyslog
+    state: restarted
+
+- name: Restart sshd
+  ansible.builtin.service:
+    name: crond
+    state: restarted
+
+- name: Restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+
+- name: Reload sshd
+  ansible.builtin.service:
+    name: sshd
+    state: reloaded
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
