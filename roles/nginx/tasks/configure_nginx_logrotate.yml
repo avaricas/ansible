@@ -26,4 +26,4 @@
         group: root
         mode: 0644
       tags: [ "role::nginx:configure_logrotate" ]
-  notify: [ "Test nginx and restart" ]
+      notify: [ "Test nginx and restart" ]
