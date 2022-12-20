@@ -166,8 +166,7 @@
         - name: 1.1.20 Ensure nodev option set on removable media partitions
           block:
             - name: 1.1.20 Ensure nodev option set on removable media partitions
-              ansible.builtin.script:
-                cmd: "files/audit_1.1.20.sh"
+              ansible.builtin.script: "files/audit_1.1.20.sh"
               register: audit_1_1_20_result
 
             - name: 1.1.20 Ensure nodev option set on removable media partitions
@@ -181,8 +180,7 @@
         - name: 1.1.21 Ensure nosuid option set on removable media partitions
           block:
             - name: 1.1.21 Ensure nosuid option set on removable media partitions
-              ansible.builtin.script:
-                cmd: "files/audit_1.1.21.sh"
+              ansible.builtin.script: "files/audit_1.1.21.sh"
               register: audit_1_1_21_result
 
             - name: 1.1.20 Ensure nodev option set on removable media partitions

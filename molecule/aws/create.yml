@@ -24,8 +24,8 @@
     default_instance_type: t3.micro
     default_key_inject_method: cloud-init # valid values: [cloud-init, ec2]
     default_key_name: "molecule-{{ run_config.run_id }}"
-    default_private_key_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/av-tf-admin"
-    default_public_key_path: "{{ default_private_key_path }}.pem"
+    default_private_key_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/id_rsa"
+    default_public_key_path: "{{ default_private_key_path }}.pub"
     default_ssh_user: ec2-user
     default_ssh_port: 22
     default_user_data: ""
