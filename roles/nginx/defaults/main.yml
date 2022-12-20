@@ -19,13 +19,17 @@ opt_dir: "/opt"
 nginx_path: "/etc/nginx"
 nginx_conf_path: "/etc/nginx/nginx.conf"
 
+nginx_sites_available_default_file: "files/etc/nginx/conf.d/sites-available/default.conf"
 # Sites-available
-nginx_sites_available_app_conf_template: "templates/sites-available/app.conf.j2"
+nginx_sites_available_path: "/etc/nginx/sites-available/default.conf"
 nginx_sites_available_app_conf_path: "/etc/nginx/sites-available/app.conf"
 
 # Sites-enabled
-nginx_sites_enabled_app_conf_path: "/etc/nginx/sites-enabled/default.conf"
+nginx_sites_enabled_path: "/etc/nginx/sites-enabled/default.conf"
+nginx_sites_enabled_app_conf_path: "/etc/nginx/sites-enabled/app.conf"
 
+# Templates
+nginx_sites_available_app_conf_template: "templates/sites-available/app.conf.j2"
 # Logrotate
 nginx_logrotate_template: "templates/nginx-logrotate.j2"
 nginx_logrotate_path: "/etc/logrotate.d/nginx"
