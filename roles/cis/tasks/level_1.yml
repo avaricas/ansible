@@ -2326,7 +2326,7 @@
                 msg:
                   - Warning - Manual intervention is required -- missing group on items in
                   - "{{ item }}"
-              loop: "{{ audit_6_1_12.results | map(attribute='stdout_lines') }}"
+              with_items: "{{ audit_6_1_12.results | map(attribute='stdout_lines') }}"
               when: (audit_6_1_11.stdout_lines | length > 0)
           tags:
             - section-6
