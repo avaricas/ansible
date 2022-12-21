@@ -38,7 +38,7 @@
         - name: 1.1.2 Ensure /tmp is configured
           block:
             - name: 1.1.2 - Ensure separate partition exists for /tmp
-              ansible.posix.mount:
+              mount: #ansible.posix.mount:
                 name: "{{ item.mountpoint }}"
                 state: present
                 fstype: "{{ item.fstype }}"
@@ -102,7 +102,7 @@
         - name: 1.1.6 Ensure /dev/shm is configured
           block:
             - name: 1.1.6 Ensure /dev/shm is configured
-              ansible.posix.mount:
+              mount: #ansible.posix.mount:
                 name: "{{ item.mountpoint }}"
                 state: present
                 fstype: "{{ item.fstype }}"
@@ -443,7 +443,7 @@
               when: security_limits_1_5_1.stat.exists is defined and security_limits_1_5_1.stat.exists
 
             - name: 1.5.1 - Prevent suid programs from dumping core
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -475,7 +475,7 @@
 
           # 1.5 Additional Process Hardening | 1.5.3 Ensure address space layout randomization (ASLR) is enabled
         - name: 1.5.3 Ensure address space layout randomization (ASLR) is enabled
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1131,7 +1131,7 @@
         - name: 3.2.1 Ensure forwarding is disabled | IPv4
           block:
             - name: 3.2.1 Ensure forwarding is disabled | IPv4
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -1143,7 +1143,7 @@
                 - { name: net.ipv4.route.flush, value: 1 }
 
             - name: 3.2.1 Ensure forwarding is disabled | IPv6
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -1159,7 +1159,7 @@
             - "3.2.1"
 
         - name: 3.2.2 Ensure packet redirect sending is disabled
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1183,7 +1183,7 @@
         - name: 3.3.1 Ensure source routed packets are not accepted
           block:
             - name: 3.3.1 Ensure source routed packets are not accepted | IPv4
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -1196,7 +1196,7 @@
                 - { name: net.ipv4.route.flush, value: 1 }
 
             - name: 3.3.1 Ensure source routed packets are not accepted | IPv6
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -1215,7 +1215,7 @@
         - name: 3.3.2 Ensure ICMP redirects are not accepted
           block:
             - name: 3.3.2 Ensure ICMP redirects are not accepted | IPv4
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -1228,7 +1228,7 @@
                 - { name: net.ipv4.route.flush, value: 1 }
 
             - name: 3.3.2 Ensure ICMP redirects are not accepted | IPv6
-              ansible.posix.sysctl:
+              sysctl: #ansible.posix.sysctl:
                 name: "{{ item.name }}"
                 value: "{{ item.value }}"
                 state: present
@@ -1243,7 +1243,7 @@
             - "3.3.2"
 
         - name: 3.3.3 Ensure secure ICMP redirects are not accepted
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1260,7 +1260,7 @@
             - "3.3.3"
 
         - name: 3.3.4 Ensure suspicious packets are logged
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1277,7 +1277,7 @@
             - "3.3.4"
 
         - name: 3.3.5 Ensure broadcast ICMP requests are ignored
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1293,7 +1293,7 @@
             - "3.3.5"
 
         - name: 3.3.6 Ensure bogus ICMP responses are ignored
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1309,7 +1309,7 @@
             - "3.3.6"
 
         - name: 3.3.7 Ensure Reverse Path Filtering is enabled
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1326,7 +1326,7 @@
             - "3.3.7"
 
         - name: 3.3.8 Ensure TCP SYN Cookies is enabled
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
@@ -1342,7 +1342,7 @@
             - "3.3.8"
 
         - name: 3.3.9 Ensure IPv6 router advertisements are not accepted
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present

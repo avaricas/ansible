@@ -19,7 +19,7 @@
                 - level-2
 
             - name: 1.1.11 Ensure separate partition exists for /var/tmp
-              ansible.posix.mount:
+              mount: #ansible.posix.mount:
                 name: "{{ item.mountpoint }}"
                 state: present
                 fstype: "{{ item.fstype }}"
@@ -177,7 +177,7 @@
     - name: 3.1 Disable unused network protocols and devices
       block:
         - name: 3.1.1 Disable IPv6
-          ansible.posix.sysctl:
+          sysctl: #ansible.posix.sysctl:
             name: "{{ item.name }}"
             value: "{{ item.value }}"
             state: present
