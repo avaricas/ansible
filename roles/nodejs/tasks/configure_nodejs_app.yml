@@ -1,0 +1,14 @@
+---
+- name: Configure | Nodejs.
+  block:
+    - name: Set | DB credentials.
+      ansible.builtin.set_fact:
+        backend_db_credentials: "{{ lookup('aws_ssm', '{{ ssm_parameters_mongo_db_credentials }}') }}"
+
+    - name:  Configure | Nodejs Default conf.
+      ansible.builtin.copy:
+        src: "{{ env_template }}"
+        dest: '{{ env_path }}'
+        owner: root
+        group: root
+        mode: 0644

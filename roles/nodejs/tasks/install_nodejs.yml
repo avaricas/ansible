@@ -1,0 +1,11 @@
+---
+- name: Install | Nodejs.
+  block:
+    - name: Get | Nodejs.
+      ansible.builtin.shell: "curl -sL https://rpm.nodesource.com/setup_14.x | bash"
+      changed_when: true
+
+    - name: Install | Nodejs.
+      ansible.builtin.yum:
+        name: nodejs
+        state: present

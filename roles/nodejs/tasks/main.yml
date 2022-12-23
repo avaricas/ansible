@@ -1,0 +1,14 @@
+---
+- name: Include | Nodejs tasks.
+  block:
+    - name: Include | Nodejs tasks.
+      block:
+        - name: Install | Nodejs.
+          ansible.builtin.include_tasks: install_nodejs.yml
+      when:
+        - target is defined
+        - target == "golden_image"
+
+    - name: Configure | Nodejs app.
+      ansible.builtin.include_tasks: configure_nodejs_app.yml
+
