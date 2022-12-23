@@ -6,7 +6,7 @@
         backend_db_credentials: "{{ lookup('aws_ssm', '{{ ssm_parameters_mongo_db_credentials }}', region='eu-north-1') }}"
 
     - name:  Configure | Nodejs Default conf.
-      ansible.builtin.copy:
+      template:
         src: "{{ env_template }}"
         dest: '{{ env_path }}'
         owner: root
