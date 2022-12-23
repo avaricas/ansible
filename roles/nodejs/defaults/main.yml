@@ -2,5 +2,5 @@
 ssm_parameters_mongo_db_credentials: "/dev/general/nodejs/mongodb_creds"
 
 
-env_template: "tamplates/env.example.j2"
-env_path: "/var/www/app/backend/env.example"
+env_template: "tamplates/env.development.example.j2"
+env_path: "/var/www/app/backend/env.development.example"
