@@ -5,10 +5,11 @@
       ansible.builtin.set_fact:
         backend_db_credentials: "{{ lookup('aws_ssm', '{{ ssm_parameters_mongo_db_credentials }}', region='eu-north-1') }}"
 
-    - name:  Configure | Nodejs Default conf.
+    - name: Configure | Nodejs Default conf.
       template:
-        src: "{{ env_template }}"
-        dest: '{{ env_path }}'
+        src: "{{ env_template[item] }}"
+        dest: "{{ env_path }}/{{ env_template[item] }}"
         owner: root
         group: root
         mode: 0644
+      loop: "{{ env_template }}"
