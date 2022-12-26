@@ -8,7 +8,7 @@
     - name: Configure | Nodejs Default conf.
       template:
         src: "{{ env_template[item] }}"
-        dest: "{{ env_path }}/{{ env_template[item] }}"
+        dest: "{{ env_path }}/{{ env_template[item] | regex_replace('.j2', '')}}"
         owner: root
         group: root
         mode: 0644
