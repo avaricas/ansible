@@ -12,4 +12,4 @@
         owner: root
         group: root
         mode: 0644
-      loop: "{{ env_template }}"
+      with_items: "{{ env_template }}"
