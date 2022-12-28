@@ -1,14 +1,6 @@
 ---
 - name: Configure | NGINX.
   block:
-    - name:  Configure | NGINX Default conf.
-      ansible.builtin.copy:
-        src: "{{ nginx_sites_available_default_file }}"
-        dest: '{{ nginx_sites_available_path }}'
-        owner: root
-        group: root
-        mode: 0644
-
     - name: Configure | NGINX app.conf file.
       ansible.builtin.template:
         src: "{{ nginx_sites_available_app_conf_template }}"

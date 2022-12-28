@@ -23,12 +23,12 @@ server {
 
         set $is_healthy  0;
 
-        #Legacy
+        #frontend
         if (-d /var/www/app/frontend/) {
             set $is_healthy  1;
         }
 
-        #api
+        #backend
         if (-d /var/www/app/backend/) {
             set $is_healthy  1;
         }

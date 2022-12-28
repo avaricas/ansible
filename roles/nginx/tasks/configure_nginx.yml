@@ -55,7 +55,7 @@
         state: link
         force: true
       loop:
-        - { src: "{{ nginx_sites_available_path }}", dest: "{{ nginx_sites_enabled_path }}" }
+        # - { src: "{{ nginx_sites_available_path }}", dest: "{{ nginx_sites_enabled_path }}" }
         - { src: "{{ nginx_sites_available_app_conf_path }}", dest: "{{ nginx_sites_enabled_app_conf_path }}" }        
       notify: [ "Test nginx and restart" ]      
   tags: [ "role::nginx:configure_nginx" ]
