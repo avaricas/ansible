@@ -2,3 +2,5 @@
 env: "dev"
 project: "anva0101"
 application: "frontend"
+
+alb_internal_url: "http://<url_path>"
